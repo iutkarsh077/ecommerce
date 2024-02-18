@@ -1,7 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NavbarDemo } from "@/components/Navbar";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
+import { GlobalContextProvider } from "@/context/GlobalContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,13 +13,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-      <body className={`{inter.className} bg-gray-600 text-white`}>
-        <NavbarDemo/>
-        {children}
-      </body>
-    </html>
-    </ClerkProvider>
+    <GlobalContextProvider>
+      <ClerkProvider>
+        <html lang="en">
+          <body className={`{inter.className} bg-gray-600 text-white`}>
+            <NavbarDemo />
+            {children}
+          </body>
+        </html>
+      </ClerkProvider>
+    </GlobalContextProvider>
   );
 }

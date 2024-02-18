@@ -1,8 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "./ui/navbar-menu";
+import React, { useContext, useState } from "react";
+import { HoveredLink, Menu, MenuItem } from "./ui/navbar-menu";
 import { cn } from "@/utils/cn";
-
+import { userContext } from "@/context/GlobalContextProvider";
+import { SignOutButton } from "@clerk/nextjs";
+import { IoMdCart } from "react-icons/io";
+import SearchBar from "./SearchBar";
 export function NavbarDemo() {
   return (
     <div className="relative w-full flex items-center justify-center">
@@ -13,11 +16,26 @@ export function NavbarDemo() {
 
 function Navbar({ className }) {
   const [active, setActive] = useState(null);
+  const {isLoggedIn} = useContext(userContext);
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
-      <Menu setActive={setActive}>
+      {
+        isLoggedIn ? (
+          <>
+          <Menu setActive={setActive}>
+          <SearchBar/>
+          <div className="hover:cursor-pointer flex items-center text-3xl p-1">
+          <IoMdCart/>
+          </div>
+         <SignOutButton>
+        <button>Sign out</button>
+      </SignOutButton>
+      </Menu>
+          </>
+        ) : (
+          <Menu setActive={setActive}>
         <HoveredLink href={"/sign-in"}>
           <MenuItem
             setActive={setActive}
@@ -33,6 +51,8 @@ function Navbar({ className }) {
           ></MenuItem>
         </HoveredLink>
       </Menu>
+        )
+      }
     </div>
   );
 }
