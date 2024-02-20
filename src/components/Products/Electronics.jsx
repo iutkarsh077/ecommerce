@@ -11,7 +11,7 @@ const Electronics = () => {
   useEffect(() => {
     async function getElectronics() {
       const Electronics = await getElectronicsProducts();
-      console.log(Electronics);
+      // console.log(Electronics);
       setElectronics(Electronics);
     }
     getElectronics();
@@ -20,7 +20,7 @@ const Electronics = () => {
 
   const AddToCart = async (jewel) =>{
    try {
-    console.log(jewel);
+    // console.log(jewel);
     const res = await fetch('/api/myaccount', {
         method: 'POST',
         body: JSON.stringify({
@@ -31,7 +31,7 @@ const Electronics = () => {
         }
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     toast.success(data.msg, {
       duration: 2000,
       position: 'top-right',

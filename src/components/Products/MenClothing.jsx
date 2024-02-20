@@ -1,7 +1,6 @@
 "use client";
 import { getMenClothingProducts } from "@/utils/productsFetch/SliderImages";
 import { useEffect, useState } from "react";
-import ReactStars from "react-rating-stars-component";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,7 +10,7 @@ const MenClothing = () => {
   useEffect(() => {
     async function getMenClothing() {
       const MenClothing = await getMenClothingProducts();
-      console.log(MenClothing);
+      // console.log(MenClothing);
       setMenClothing(MenClothing);
     }
 
@@ -20,7 +19,7 @@ const MenClothing = () => {
 
   const AddToCart = async (jewel) => {
     try {
-      console.log(jewel);
+      // console.log(jewel);
       const res = await fetch("/api/myaccount", {
         method: "POST",
         body: JSON.stringify({
@@ -31,7 +30,7 @@ const MenClothing = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       toast.success(data.msg, {
         duration: 2000,
         position: 'top-right',

@@ -8,13 +8,13 @@ export async function GET() {
   try {
     const user = await currentUser();
     const email = user.emailAddresses[0].emailAddress;
-    console.log(email);
+    // console.log(email);
 
     const cartItems = await MyCart.find({Email: email});
-    console.log(cartItems);
+    // console.log(cartItems);
     return NextResponse.json({status: true, msg: "Items from cart", cartItems});
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return NextResponse.json({status: true, msg: "Failed to get Items from cart"})
   }
 }

@@ -10,7 +10,7 @@ const Jewellery = () => {
   useEffect(() => {
     async function getJewellery() {
       const jewellery = await getJwelleryProducts();
-      console.log(jewellery);
+      // console.log(jewellery);
       setJewellery(jewellery);
     }
 
@@ -30,7 +30,7 @@ const Jewellery = () => {
         },
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       toast.success(data.msg, {
         duration: 2000,
         position: 'top-right',

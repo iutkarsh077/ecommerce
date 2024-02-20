@@ -10,7 +10,7 @@ const WomenClothing = () => {
   useEffect(() => {
     async function getWowomen() {
       const Wowomen = await getWoMenClothingProducts();
-      console.log(Wowomen);
+      // console.log(Wowomen);
       setWowomen(Wowomen);
     }
 
@@ -19,7 +19,7 @@ const WomenClothing = () => {
 
   const AddToCart = async (jewel) => {
     try {
-      console.log(jewel);
+      // console.log(jewel);
     const res = await fetch("/api/myaccount", {
       method: "POST",
       body: JSON.stringify({
@@ -30,13 +30,13 @@ const WomenClothing = () => {
       },
     });
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     toast.success(data.msg, {
       duration: 2000,
       position: 'top-right',
     });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(data.msg, {
         duration: 2000,
         position: 'top-right',

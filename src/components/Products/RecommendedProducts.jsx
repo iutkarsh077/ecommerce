@@ -18,7 +18,7 @@ const RecommendedProducts = ({ category }) => {
         const reProducts = await getRecommendedProduct({ category });
         setReProducts(reProducts);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         router.push("/");
       }
     }
@@ -30,7 +30,7 @@ const RecommendedProducts = ({ category }) => {
 
   const AddToCart = async (jewel) => {
     try {
-      console.log(jewel);
+      // console.log(jewel);
       const res = await fetch("/api/myaccount", {
         method: "POST",
         body: JSON.stringify({
@@ -41,13 +41,13 @@ const RecommendedProducts = ({ category }) => {
         },
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       toast.success(data.msg, {
         duration: 2000,
         position: 'top-right',
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(data.msg, {
         duration: 2000,
         position: 'top-right',

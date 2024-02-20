@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { HoveredLink, Menu, MenuItem } from "./ui/navbar-menu";
 import { cn } from "@/utils/cn";
 import { userContext } from "@/context/GlobalContextProvider";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { IoMdCart } from "react-icons/io";
 import Link from "next/link";
 import SearchBar from "./SearchBar";

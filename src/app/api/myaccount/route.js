@@ -4,12 +4,12 @@ import { NextResponse } from "next/server";
 import MyCart from "@/models/CartInfo";
 export async function POST(req) {
   const { ItemDetails } = await req.json();
-  console.log(ItemDetails)
+  // console.log(ItemDetails)
   try {
     await connectToDB();
     const user = await currentUser();
     const email = user.emailAddresses[0].emailAddress;
-    console.log(email);
+    // console.log(email);
     const findProductAndUser = await MyCart.findOne({ Email: email, uid: ItemDetails.id });
     if(findProductAndUser && findProductAndUser.uid == ItemDetails.id){
         return NextResponse.json({status: false, msg: "Item already in cart"})
