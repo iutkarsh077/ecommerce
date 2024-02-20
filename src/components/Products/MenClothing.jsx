@@ -20,7 +20,8 @@ const MenClothing = () => {
   return (
     <>
       <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
-        Men's Clothing
+        Men<span>&#39;</span>
+ s Clothing
       </div>
       <div className="flex flex-wrap justify-center">
         {MenClothing ? (
