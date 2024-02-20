@@ -19,39 +19,32 @@ function Navbar({ className }) {
   const [active, setActive] = useState(null);
   const {isLoggedIn} = useContext(userContext);
   return (
-    <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
-    >
-      {
-        isLoggedIn ? (
-          <>
-          <Menu setActive={setActive}>
-          <SearchBar/>
-          <div className="hover:cursor-pointer flex items-center text-3xl p-1">
-          <Link href={"/MyCart"}><IoMdCart/></Link>
-          </div>
-        <div className="pt-1"><UserButton/></div>
+    <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}>
+  {isLoggedIn ? (
+    <>
+      <Menu setActive={setActive}>
+        <SearchBar />
+        <div className="hover:cursor-pointer flex items-center text-3xl p-1">
+          <Link href={"/MyCart"}>
+            <IoMdCart />
+          </Link>
+        </div>
+        <div className="pt-1">
+          <UserButton />
+        </div>
       </Menu>
-          </>
-        ) : (
-          <Menu setActive={setActive}>
-        <HoveredLink href={"/sign-in"}>
-          <MenuItem
-            setActive={setActive}
-            active={active}
-            item="Sign In"
-          ></MenuItem>
-        </HoveredLink>
-        <HoveredLink href={"/sign-up"}>
-          <MenuItem
-            setActive={setActive}
-            active={active}
-            item="Sign Up"
-          ></MenuItem>
-        </HoveredLink>
-      </Menu>
-        )
-      }
-    </div>
+    </>
+  ) : (
+    <Menu setActive={setActive}>
+      <HoveredLink href={"/sign-in"}>
+        <MenuItem setActive={setActive} active={active} item="Sign In" />
+      </HoveredLink>
+      <HoveredLink href={"/sign-up"}>
+        <MenuItem setActive={setActive} active={active} item="Sign Up" />
+      </HoveredLink>
+    </Menu>
+  )}
+</div>
+
   );
 }
