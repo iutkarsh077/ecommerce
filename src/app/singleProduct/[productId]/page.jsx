@@ -8,7 +8,7 @@ import { getSingleProduct } from "@/utils/productsFetch/SliderImages";
 import { FaShoppingCart } from "react-icons/fa";
 import RecommendedProducts from "@/components/Products/RecommendedProducts";
 
-const page = ({ params }) => {
+const SingleProduct = ({ params }) => {
   const router = useRouter();
   const [selectedProduct, setSelectedProduct] = useState("HIi");
   const { isLoaded, isSignedIn, user } = useUser();
@@ -121,4 +121,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default SingleProduct;
