@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-
-const SearchBar = ({ onSearch }) => {
+import Link from 'next/link';
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -10,9 +10,8 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSearch(searchTerm);
   };
-
+  
   return (
     <form onSubmit={handleSubmit} className="flex items-center">
       <input
@@ -22,9 +21,11 @@ const SearchBar = ({ onSearch }) => {
         onChange={handleChange}
         className="border text-black border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
       />
+      <Link href={`/searchProduct/${searchTerm}`}>
       <button type="submit" className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md">
         Search
       </button>
+      </Link>
     </form>
   );
 };

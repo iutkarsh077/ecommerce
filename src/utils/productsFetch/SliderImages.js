@@ -80,3 +80,18 @@ export async function getRecommendedProduct({category}) {
         console.log(error)
     }
 }
+
+
+export async function getSearchedProduct({word}) {
+    try {
+        const product = await fetch(`https://fakestoreapi.com/products`)
+        const productData = await product.json();
+        const MyWordProduct = productData.filter((product)=>{
+            return product.title.toLowerCase().includes(word);
+        })
+        console.log(MyWordProduct)
+        return MyWordProduct;
+    } catch (error) {
+        console.log(error)
+    }
+}

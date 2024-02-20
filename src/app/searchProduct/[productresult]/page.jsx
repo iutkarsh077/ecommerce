@@ -1,25 +1,48 @@
 "use client";
-import { getElectronicsProducts } from "@/utils/productsFetch/SliderImages";
-import { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+
+import { userContext } from "@/context/GlobalContextProvider";
+import { useContext, useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import CircleLoader from "@/components/CircleLoader";
+import { useRouter } from "next/navigation";
+import { getSearchedProduct } from "@/utils/productsFetch/SliderImages";
 import Link from "next/link";
-import toast, { Toaster } from 'react-hot-toast';
+import { FaShoppingCart } from "react-icons/fa";
 
+const SearchedProduct = ({ params }) => {
+  const { setUserDetails, setIsLoggedIn } = useContext(userContext);
+  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
+  const [searchProduct, setSearchProduct] = useState([]);
 
-const Electronics = () => {
-  const [Electronics, setElectronics] = useState([]);
   useEffect(() => {
-    async function getElectronics() {
-      const Electronics = await getElectronicsProducts();
-      console.log(Electronics);
-      setElectronics(Electronics);
+    async function OnSearch() {
+      try {
+        const searchTerm = params.productresult;
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const searchedProduct = await getSearchedProduct({
+          word: lowerCaseSearchTerm,
+        });
+        setSearchProduct(searchedProduct);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    getElectronics();
-  }, []);
 
+    if (isLoaded && user) {
+      OnSearch();
+      setUserDetails(user);
+      setIsLoggedIn(isSignedIn);
+    } else if (!isLoaded) {
+      return <CircleLoader />;
+    } else {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, user]);
+
+  console.log(searchProduct);
 
   const AddToCart = async (jewel) =>{
-   try {
     console.log(jewel);
     const res = await fetch('/api/myaccount', {
         method: 'POST',
@@ -29,30 +52,20 @@ const Electronics = () => {
         headers: {
             'Content-Type': 'application/json'
         }
+    
     });
     const data = await res.json();
     console.log(data);
-    toast.success(data.msg, {
-      duration: 2000,
-      position: 'top-right',
-    });
-   } catch (error) {
-    toast.error(data.msg, {
-      duration: 2000,
-      position: 'top-right',
-    });
-   }
 }
 
   return (
     <>
       <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
-        Electronics
+        Searched <span className="text-gray-600">{params.productresult}</span>
       </div>
-      <Toaster/>
       <div className="flex flex-wrap justify-center">
-        {Electronics ? (
-          Electronics.map((electro) => (
+        {searchProduct ? (
+          searchProduct.map((electro) => (
             <div
               key={electro.id}
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4"
@@ -96,7 +109,7 @@ const Electronics = () => {
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                   Price: {electro.price}
                 </span>
-                <span className="text-2xl" onClick={() => AddToCart(electro)}>
+                <span className="text-2xl" onClick={()=>AddToCart(electro)}>
                   <FaShoppingCart />
                 </span>
               </div>
@@ -110,4 +123,4 @@ const Electronics = () => {
   );
 };
 
-export default Electronics;
+export default SearchedProduct;

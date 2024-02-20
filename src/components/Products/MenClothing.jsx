@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 const MenClothing = () => {
   const [MenClothing, setMenClothing] = useState([]);
@@ -17,19 +18,45 @@ const MenClothing = () => {
     getMenClothing();
   }, []);
 
+  const AddToCart = async (jewel) => {
+    try {
+      console.log(jewel);
+      const res = await fetch("/api/myaccount", {
+        method: "POST",
+        body: JSON.stringify({
+          ItemDetails: jewel,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+      toast.success(data.msg, {
+        duration: 2000,
+        position: 'top-right',
+      });
+    } catch (error) {
+      toast.error(data.msg, {
+        duration: 2000,
+        position: 'top-right',
+      });
+    }
+  };
+
   return (
     <>
       <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
-        Men<span>&#39;</span>
- s Clothing
+        Men<span>&#39;</span>s Clothing
       </div>
+      <Toaster/>
       <div className="flex flex-wrap justify-center">
         {MenClothing ? (
           MenClothing.map((menCloth) => (
             <div
               key={menCloth.id}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4">
-              <Link href={`/singleProduct/${menCloth.id}`}>
+              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4"
+            >
               <div className="aspect-w-1 aspect-h-1 md:aspect-w-1 md:aspect-h-1 lg:aspect-w-1 lg:aspect-h-1">
                 <img
                   src={menCloth.image}
@@ -38,8 +65,9 @@ const MenClothing = () => {
                 />
               </div>
               <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{menCloth.title}</div>
-                <div className="flex items-center">
+                <Link href={`/singleProduct/${menCloth.id}`}>
+                  <div className="font-bold text-xl mb-2">{menCloth.title}</div>
+                  <div className="flex items-center">
                     <p className="text-gray-600 mr-2">{menCloth.rating.rate}</p>
                     <div className="flex">
                       {Number.isInteger(Math.floor(menCloth.rating.rate)) &&
@@ -62,16 +90,16 @@ const MenClothing = () => {
                         )}
                     </div>
                   </div>
+                </Link>
               </div>
               <div className="px-6 py-4 flex justify-between hover:cursor-pointer">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                   Price: {menCloth.price}
                 </span>
-                <span className="text-2xl o">
+                <span className="text-2xl" onClick={() => AddToCart(menCloth)}>
                   <FaShoppingCart />
                 </span>
               </div>
-              </Link>
             </div>
           ))
         ) : (

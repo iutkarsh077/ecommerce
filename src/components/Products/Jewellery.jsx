@@ -3,6 +3,7 @@ import { getJwelleryProducts } from "@/utils/productsFetch/SliderImages";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Jewellery = () => {
   const [jewellery, setJewellery] = useState([]);
@@ -16,8 +17,31 @@ const Jewellery = () => {
     getJewellery();
   }, []);
 
-  const handleSingleProduct = (jewel) => {
-    console.log(jewel);
+  const AddToCart = async (jewel) => {
+    try {
+      console.log(jewel);
+      const res = await fetch("/api/myaccount", {
+        method: "POST",
+        body: JSON.stringify({
+          ItemDetails: jewel,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+      toast.success(data.msg, {
+        duration: 2000,
+        position: 'top-right',
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error(data.msg, {
+        duration: 2000,
+        position: 'top-right',
+      });
+    }
   };
 
   return (
@@ -25,6 +49,7 @@ const Jewellery = () => {
       <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
         Jewellery
       </div>
+      <Toaster />
       <div className="flex flex-wrap justify-center">
         {jewellery ? (
           jewellery.map((jewel) => (
@@ -32,15 +57,15 @@ const Jewellery = () => {
               key={jewel.id}
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4"
             >
-              <Link href={`/singleProduct/${jewel.id}`}>
-                <div className="aspect-w-1 aspect-h-1 md:aspect-w-1 md:aspect-h-1 lg:aspect-w-1 lg:aspect-h-1">
-                  <img
-                    src={jewel.image}
-                    alt="Jewelry"
-                    className="object-cover w-full h-60 hover:cursor-pointer"
-                  />
-                </div>
-                <div className="px-6 py-4">
+              <div className="aspect-w-1 aspect-h-1 md:aspect-w-1 md:aspect-h-1 lg:aspect-w-1 lg:aspect-h-1">
+                <img
+                  src={jewel.image}
+                  alt="Jewelry"
+                  className="object-cover w-full h-60 hover:cursor-pointer"
+                />
+              </div>
+              <div className="px-6 py-4">
+                <Link href={`/singleProduct/${jewel.id}`}>
                   <div className="font-bold text-xl mb-2">{jewel.title}</div>
 
                   <div className="flex items-center">
@@ -66,17 +91,16 @@ const Jewellery = () => {
                         )}
                     </div>
                   </div>
-                  
-                </div>
-                <div className="px-6 py-4 flex justify-between hover:cursor-pointer">
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                    Price: {jewel.price}
-                  </span>
-                  <span className="text-2xl o">
-                    <FaShoppingCart />
-                  </span>
-                </div>
-              </Link>
+                </Link>
+              </div>
+              <div className="px-6 py-4 flex justify-between hover:cursor-pointer">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                  Price: {jewel.price}
+                </span>
+                <span className="text-2xl" onClick={() => AddToCart(jewel)}>
+                  <FaShoppingCart />
+                </span>
+              </div>
             </div>
           ))
         ) : (

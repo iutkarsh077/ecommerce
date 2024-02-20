@@ -3,8 +3,9 @@ import React, { useContext, useState } from "react";
 import { HoveredLink, Menu, MenuItem } from "./ui/navbar-menu";
 import { cn } from "@/utils/cn";
 import { userContext } from "@/context/GlobalContextProvider";
-import { SignOutButton } from "@clerk/nextjs";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 import { IoMdCart } from "react-icons/io";
+import Link from "next/link";
 import SearchBar from "./SearchBar";
 export function NavbarDemo() {
   return (
@@ -27,11 +28,9 @@ function Navbar({ className }) {
           <Menu setActive={setActive}>
           <SearchBar/>
           <div className="hover:cursor-pointer flex items-center text-3xl p-1">
-          <IoMdCart/>
+          <Link href={"/MyCart"}><IoMdCart/></Link>
           </div>
-         <SignOutButton>
-        <button>Sign out</button>
-      </SignOutButton>
+        <div className="pt-1"><UserButton/></div>
       </Menu>
           </>
         ) : (
