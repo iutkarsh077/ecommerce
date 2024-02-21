@@ -149,7 +149,15 @@ const SingleProduct = ({ params }) => {
               <p className="text-white mb-2 text-lg">
                 Price: ${selectedProduct.price}
               </p>
-              <div className="flex items-center mb-2">
+              <div className="flex items-center mb-2 gap-x-3">
+              <div className="flex justify-between w-full max-w-xs md:max-w-full">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
+                  onClick={makePayments}
+                >
+                  Purchase
+                </button>
+                </div>
                 <div className="flex items-center">
                   <button
                     className="bg-gray-100 text-gray-700 px-4 py-2 rounded-l-md hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-400"
@@ -167,14 +175,6 @@ const SingleProduct = ({ params }) => {
                     +
                   </button>
                 </div>
-              </div>
-              <div className="flex justify-between w-full max-w-xs md:max-w-full">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
-                  onClick={makePayments}
-                >
-                  Purchase
-                </button>
                 <div
                   className="flex items-center hover:cursor-pointer"
                   onClick={() => AddToCart(selectedProduct)}
@@ -183,8 +183,10 @@ const SingleProduct = ({ params }) => {
                   <p className="text-white">Cart</p>
                 </div>
               </div>
+              
+               
+              </div>
             </div>
-          </div>
           <div className="h-2/5 w-full">
             {category ? (
               <RecommendedProducts category={category} />
