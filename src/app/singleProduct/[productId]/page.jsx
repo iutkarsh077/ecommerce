@@ -8,6 +8,7 @@ import { getSingleProduct } from "@/utils/productsFetch/SliderImages";
 import { FaShoppingCart } from "react-icons/fa";
 import RecommendedProducts from "@/components/Products/RecommendedProducts";
 import toast, { Toaster } from "react-hot-toast";
+import { loadStripe } from '@stripe/stripe-js';
 
 const SingleProduct = ({ params }) => {
   const router = useRouter();
@@ -80,6 +81,46 @@ const SingleProduct = ({ params }) => {
     }
   };
 
+
+const makePayments = async () => {
+  try {
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+
+    const body = {
+      selectedProduct: selectedProduct, // Assuming selectedProduct is defined elsewhere
+      increaseQuantity: increaseQuantity // Assuming increaseQuantity is defined elsewhere
+    };
+
+    const headers = {
+      "Content-Type": "application/json"
+    };
+
+    const response = await fetch("/api/payment", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create payment session");
+    }
+
+    const session = await response.json();
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id
+    });
+
+    if (result.error) {
+      console.error(result.error);
+      // Handle error appropriately, e.g., display to the user
+    }
+  } catch (error) {
+    console.error("Error making payment:", error);
+    // Handle error appropriately, e.g., display to the user
+  }
+};
+
+
   return (
     <div className="w-screen overflow-x-hidden h-screen">
       <Toaster/>
@@ -125,7 +166,7 @@ const SingleProduct = ({ params }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-x-4 md:flex-row justify-between items-center px-4 py-2">
-                <button className="bg-blue-500 text-white px-4 py-2 mb-2 md:mb-0 md:mr-2 md:px-6 md:py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400">
+                <button className="bg-blue-500 text-white px-4 py-2 mb-2 md:mb-0 md:mr-2 md:px-6 md:py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400" onClick={makePayments}>
                   Purchase
                 </button>
                 <div
