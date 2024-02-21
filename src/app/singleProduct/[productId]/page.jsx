@@ -84,7 +84,7 @@ const SingleProduct = ({ params }) => {
 
 const makePayments = async () => {
   try {
-    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY);
+    const stripe = await loadStripe("pk_test_51OmCUvSGbcvshBgxh9EycDiBA6hCbPW0RRCc0wrDTG5i9R3ndrDVUMAEa9V0zKNLUNTh9ISOAdQamBC7LsHQPh7o00dK5cxj2z");
 
     const body = {
       selectedProduct: selectedProduct, // Assuming selectedProduct is defined elsewhere
