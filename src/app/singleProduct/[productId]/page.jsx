@@ -126,12 +126,12 @@ const makePayments = async () => {
   <Toaster/>
   {selectedProduct ? (
     <>
-      <div className="flex flex-col sm:flex-row w-full h-3/5">
+      <div className="flex flex-col sm:flex-row w-full h-3/5" onClick={makePayments}>
         <div className="sm:w-3/5 sm:flex sm:items-center flex justify-center bg-white">
           <img
             src={selectedProduct.image}
             alt="Image"
-            className="h-full object-contain"
+            className="sm:h-full object-contain"
           />
         </div>
         <div className="bg-black md:w-2/5 flex flex-col gap-y-1 overflow-y-hidden overflow-x-hidden items-center justify-center p-4">
