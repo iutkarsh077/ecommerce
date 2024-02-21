@@ -57,7 +57,7 @@ const RecommendedProducts = ({ category }) => {
 
   return (
     <>
-      <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
+      <div className="bg-red-600 text-lg hidden md:text-3xl md:p-4 md:font-bold">
         Recommended Products
       </div>
       <Toaster/>
