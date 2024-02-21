@@ -24,7 +24,7 @@ function Navbar({ className }) {
     <>
       <Menu setActive={setActive}>
         <SearchBar />
-        <div className="hover:cursor-pointer flex items-center text-3xl">
+        <div className="hover:cursor-pointer hidden md:flex md:items-center md:text-3xl">
           <Link href={"/MyCart"}>
             <IoMdCart />
           </Link>
