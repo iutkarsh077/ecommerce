@@ -23,8 +23,8 @@ export async function POST(req) {
       payment_method_types: ["card"],
       line_items: lineItems, 
       mode: "payment",
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/failed_order",
+      success_url: "https://shopsmart-green.vercel.app/success",
+      cancel_url: "https://shopsmart-green.vercel.app/failed_order",
     });
 
     return NextResponse.json({ id: session.id });
