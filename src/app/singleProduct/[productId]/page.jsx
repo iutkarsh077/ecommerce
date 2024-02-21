@@ -127,7 +127,6 @@ const SingleProduct = ({ params }) => {
         <>
           <div
             className="flex flex-col sm:flex-row w-full h-3/5"
-            onClick={makePayments}
           >
             <div className="sm:w-3/5 sm:flex sm:items-center flex justify-center bg-white">
               <div className="image-container">
