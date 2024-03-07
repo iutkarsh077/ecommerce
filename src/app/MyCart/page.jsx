@@ -38,7 +38,7 @@ const MyCart = () => {
       } else {
         router.push("/sign-in");
       }
-    }, [isLoaded, isSignedIn, user]);
+    }, []);
 
     const RemoveToCart = async (myCart) =>{
         try {
