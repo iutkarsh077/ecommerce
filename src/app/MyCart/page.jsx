@@ -23,7 +23,7 @@ const MyCart = () => {
          });
          const CartData = await res.json();
          console.log(CartData.cartItems)
-         setCartProduct(CartData.cartItems);
+        setCartProduct(CartData.cartItems);
         } catch (error) {
           console.log(error);
         }
@@ -52,7 +52,7 @@ const MyCart = () => {
                 "Content-Type": "application/json",
               },
             });
-            await router.push('/');
+            router.push('/')
           } catch (error) {
             toast.error('Failed to remove from cart');
             console.log(error);
@@ -66,7 +66,7 @@ const MyCart = () => {
     </div>
     <Toaster />
     <div className="flex flex-wrap justify-center">
-        {CartProduct.map((myCart) => (
+        CartProduct.map((myCart) => (
           <div
             key={myCart.id}
             className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4"
@@ -79,47 +79,49 @@ const MyCart = () => {
                 />
               </div>
               <div className="px-6 py-4">
-                <Link href={`/singleProduct/${myCart.uid}`}>
-                  <div className="font-bold text-xl mb-2">{myCart.title}</div>
+            <Link href={`/singleProduct/${myCart.uid}`}>
+                <div className="font-bold text-xl mb-2">{myCart.title}</div>
 
-                  <div className="flex items-center">
-                    <p className="text-gray-600 mr-2">{myCart.rating}</p>
-                    <div className="flex">
-                      {Number.isInteger(Math.floor(myCart.rating)) &&
-                        myCart.rating > 0 &&
-                        [...Array(Math.floor(myCart.rating))].map(
-                          (_, index) => (
-                            <svg
-                              key={index}
-                              className="h-5 w-5 text-yellow-400 fill-current"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 14.634l-5.308 2.789a1 1 0 01-1.448-1.054l1.018-5.92L.272 7.773a1 1 0 01.554-1.705l5.947-.863L9.43.842a1 1 0 011.14 0l2.657 4.363 5.947.863a1 1 0 01.554 1.705l-4.026 3.927 1.018 5.92a1 1 0 01-1.447 1.054L10 14.634z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          )
-                        )}
-                    </div>
+                <div className="flex items-center">
+                  <p className="text-gray-600 mr-2">{myCart.rating}</p>
+                  <div className="flex">
+                    {Number.isInteger(Math.floor(myCart.rating)) &&
+                      myCart.rating > 0 &&
+                      [...Array(Math.floor(myCart.rating))].map(
+                        (_, index) => (
+                          <svg
+                            key={index}
+                            className="h-5 w-5 text-yellow-400 fill-current"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 14.634l-5.308 2.789a1 1 0 01-1.448-1.054l1.018-5.92L.272 7.773a1 1 0 01.554-1.705l5.947-.863L9.43.842a1 1 0 011.14 0l2.657 4.363 5.947.863a1 1 0 01.554 1.705l-4.026 3.927 1.018 5.92a1 1 0 01-1.447 1.054L10 14.634z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )
+                      )}
                   </div>
-                </Link>
+                </div>
+                
+            </Link>
               </div>
               <div className="px-6 py-4 flex justify-between hover:cursor-pointer">
                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                   Price: {myCart.price}
                 </span>
                 <span className="text-2xl" onClick={()=>RemoveToCart(myCart)}>
-                  <MdRemoveShoppingCart />
+                <MdRemoveShoppingCart />
                 </span>
               </div>
           </div>
-        ))}
+        ))
+      
     </div>
   </>
   )
 }
 
-export default MyCart;
+export default MyCart
