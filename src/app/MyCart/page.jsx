@@ -66,6 +66,7 @@ const MyCart = () => {
     </div>
     <Toaster />
     <div className="flex flex-wrap justify-center">
+      {CartProduct ? (
         CartProduct.map((myCart) => (
           <div
             key={myCart.id}
@@ -118,7 +119,9 @@ const MyCart = () => {
               </div>
           </div>
         ))
-      
+      ) : (
+        <div className="text-center mt-8 text-white">Loading...</div>
+      )}
     </div>
   </>
   )
