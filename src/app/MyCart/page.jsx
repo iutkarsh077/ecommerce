@@ -22,7 +22,7 @@ const MyCart = () => {
             method: 'GET'
          });
          const CartData = await res.json();
-         console.log(CartData.cartItems)
+        //  console.log(CartData.cartItems)
         setCartProduct(CartData.cartItems);
         } catch (error) {
           console.log(error);
