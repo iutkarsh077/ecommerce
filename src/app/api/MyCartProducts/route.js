@@ -13,11 +13,8 @@ export async function GET() {
     const cartItems = await MyCart.find({ Email: email }).maxTimeMS(30000);
     // console.log("Cart Items:", cartItems);
 
-    if (cartItems && cartItems.length > 0) {
-      return NextResponse.json({ status: true, msg: "Items from cart", cartItems });
-    } else {
-      return NextResponse.json({ status: false, msg: "No items found in the cart" });
-    }
+
+      return NextResponse.json({ status: true, msg: "Items from cart", cartItems }); 
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ status: false, msg: "Failed to get items from cart" });

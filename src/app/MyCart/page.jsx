@@ -55,7 +55,7 @@ const MyCart = () => {
             console.log(error);
           }
     }
-  // console.log(CartProduct)
+  console.log(CartProduct)
   return (
     <>
     <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
