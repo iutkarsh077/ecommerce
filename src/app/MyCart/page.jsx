@@ -1,6 +1,5 @@
 "use client"
 
-import CircleLoader from "@/components/CircleLoader";
 import { userContext } from "@/context/GlobalContextProvider";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -17,27 +16,25 @@ const MyCart = () => {
   
     useEffect(() => {
       async function OnSearch() {
+        await new Promise(resolve => setTimeout(resolve, 3000)); 
         try {
          const res = await fetch("/api/MyCartProducts", {
             method: 'GET'
          });
          const CartData = await res.json();
-        //  console.log(CartData.cartItems)
         setCartProduct(CartData.cartItems);
+        setIsLoggedIn(true);
+        setUserDetails(user);
         } catch (error) {
           console.log(error);
+          toast.error('Try Again', {
+            position: "top-right",
+            duration: 4000
+          })
         }
       }
   
-      if (isLoaded && user) {
-        OnSearch();
-        setUserDetails(user);
-        setIsLoggedIn(isSignedIn);
-      } else if (!isLoaded) {
-        return <CircleLoader />;
-      } else {
-        router.push("/sign-in");
-      }
+      OnSearch();
     }, []);
 
     const RemoveToCart = async (myCart) =>{
@@ -58,7 +55,7 @@ const MyCart = () => {
             console.log(error);
           }
     }
-  
+  // console.log(CartProduct)
   return (
     <>
     <div className="bg-red-600 text-lg sm:text-3xl p-4 font-bold">
@@ -69,7 +66,7 @@ const MyCart = () => {
       {CartProduct ? (
         CartProduct.map((myCart) => (
           <div
-            key={myCart.id}
+            key={myCart._id}
             className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 relative rounded overflow-hidden shadow-lg m-4"
           >
               <div className="aspect-w-1 aspect-h-1 md:aspect-w-1 md:aspect-h-1 lg:aspect-w-1 lg:aspect-h-1">

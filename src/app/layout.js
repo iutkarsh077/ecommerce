@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <GlobalContextProvider>
       <ClerkProvider>
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning={true}>
           <body className={`{inter.className} bg-gray-600 text-white`}>
             <NavbarDemo />
             {children}
