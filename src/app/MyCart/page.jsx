@@ -19,7 +19,7 @@ const MyCart = () => {
       async function OnSearch() {
         await new Promise(resolve => setTimeout(resolve, 3000));
         let myUser = user.emailAddresses[0].emailAddress;
-        console.log(myUser)
+        // console.log(myUser)
         try {
           const res = await fetch("/api/MyCartProducts", {
             method: 'POST',
