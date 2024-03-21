@@ -11,16 +11,23 @@ import toast, { Toaster } from 'react-hot-toast';
 const MyCart = () => {
     const { setUserDetails, setIsLoggedIn } = useContext(userContext);
     const { isLoaded, isSignedIn, user } = useUser();
+    // console.log(user.emailAddresses[0].emailAddress)
     const router = useRouter();
     const [CartProduct, setCartProduct] = useState([]);
   
     useEffect(() => {
       async function OnSearch() {
-        await new Promise(resolve => setTimeout(resolve, 3000)); 
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        let myUser = user.emailAddresses[0].emailAddress;
+        console.log(myUser)
         try {
-         const res = await fetch("/api/MyCartProducts", {
-            method: 'GET'
-         });
+          const res = await fetch("/api/MyCartProducts", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({myUser: myUser})
+          });
          const CartData = await res.json();
         setCartProduct(CartData.cartItems);
         setIsLoggedIn(true);
