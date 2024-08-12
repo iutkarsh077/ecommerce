@@ -19,7 +19,7 @@ const SearchBar = () => {
     placeholder="Search..."
     value={searchTerm}
     onChange={handleChange}
-    className="border  text-black border-gray-400 sm:rounded-md sm:px-4 sm:py-2 mb-2 sm:mb-0 sm:mr-2 focus:outline-none focus:border-blue-500"
+    className="border  text-black border-gray-400 rounded-md px-4 sm:py-2 py-1 sm:mb-0 sm:mr-2 focus:outline-none focus:border-blue-500"
   />
   <Link href={`/searchProduct/${searchTerm}`}>
   <button type="submit" className="hidden md:inline-block px-4 py-2 bg-blue-500 text-white rounded-md">
